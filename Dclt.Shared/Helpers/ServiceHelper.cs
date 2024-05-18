@@ -14,4 +14,14 @@ public static class ServiceHelper
         services.AddRefit<IOpenWeather>("http://api.openweathermap.org/data/2.5");
         return services;
     }
+
+    public static bool IsServiceRegistered<TService>(this IServiceCollection services)
+    {
+        return services.Any(serviceDescriptor => serviceDescriptor.ServiceType == typeof(TService));
+    }
+
+    public static bool IsServiceRegistered(this IServiceCollection services, Type serviceType)
+    {
+        return services.Any(serviceDescriptor => serviceDescriptor.ServiceType == serviceType);
+    }
 }
