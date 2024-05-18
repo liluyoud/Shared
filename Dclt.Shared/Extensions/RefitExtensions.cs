@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Refit;
 
-namespace Rovema.Shared.Extensions;
+namespace Dclt.Shared.Extensions;
 
 public static class RefitExtensions
 {
