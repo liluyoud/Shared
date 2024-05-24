@@ -2,8 +2,6 @@
 using Dclt.Shared.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Caching.Distributed;
-using static System.Net.WebRequestMethods;
 using System.Text.Json;
 
 namespace Dclt.Shared.Services;

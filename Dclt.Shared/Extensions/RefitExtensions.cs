@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Refit;
+using System.Net.Http.Headers;
 
 namespace Dclt.Shared.Extensions;
 
@@ -10,6 +11,15 @@ public static class RefitExtensions
         services.AddRefitClient<T>().ConfigureHttpClient(h =>
         {
             h.BaseAddress = new Uri(url);
+        });
+    }
+
+    public static void AddRefit<T>(this IServiceCollection services, string url, string accessToken) where T : class
+    {
+        services.AddRefitClient<T>().ConfigureHttpClient(h =>
+        {
+            h.BaseAddress = new Uri(url);
+            h.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         });
     }
 }

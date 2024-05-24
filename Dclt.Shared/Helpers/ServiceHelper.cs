@@ -7,9 +7,10 @@ namespace Dclt.Shared.Helpers;
 
 public static class ServiceHelper
 {
-    public static IServiceCollection AddDcltServices(this IServiceCollection services)
+    public static IServiceCollection AddDcltServices(this IServiceCollection services, string directusUrl, string accessToken)
     {
         services.AddHttpClient();
+        //services.AddRefit<IDirectusService>(directusUrl, accessToken);
         services.AddScoped<HttpServices>();
         services.AddRefit<IOpenWeather>("http://api.openweathermap.org/data/2.5");
         return services;
