@@ -1,18 +1,19 @@
 ﻿using Dclt.Shared.Extensions;
-using Dclt.Shared.Interfaces;
 using Dclt.Shared.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Dclt.Shared.Helpers;
 
 public static class ServiceHelper
 {
-    public static IServiceCollection AddDcltServices(this IServiceCollection services, string directusUrl, string accessToken)
+    public static IServiceCollection AddDcltServices(this IServiceCollection services, IConfiguration conf)
     {
+        var redisUrl = Environment.GetEnvironmentVariable("REDIS_URL") ?? conf["Environment:REDIS_URL"];
+        services.AddStackExchangeRedisCache(options => options.Configuration = redisUrl);
         services.AddHttpClient();
-        //services.AddRefit<IDirectusService>(directusUrl, accessToken);
-        services.AddScoped<HttpServices>();
-        services.AddRefit<IOpenWeather>("http://api.openweathermap.org/data/2.5");
+        services.AddScoped<HttpService>();
+        services.AddScoped<DirectusService>();
         return services;
     }
 

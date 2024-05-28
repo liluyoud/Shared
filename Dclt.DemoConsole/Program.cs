@@ -10,7 +10,7 @@ var host = CreateHostBuilder().Build();
 using (var serviceScope = host.Services.CreateScope())
 {
     var services = serviceScope.ServiceProvider;
-    var httpService = services.GetRequiredService<HttpServices>();
+    var httpService = services.GetRequiredService<HttpService>();
     var refitService = services.GetRequiredService<IOpenWeather>();
 
     try
