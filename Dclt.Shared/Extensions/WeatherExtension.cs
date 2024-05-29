@@ -1,5 +1,4 @@
 ﻿using Dclt.Shared.Models;
-using System.Text.Json;
 
 namespace Dclt.Shared.Extensions;
 
@@ -11,7 +10,7 @@ public static class WeatherExtension
         {
             var read = new WeatherModel();
             read.ReadAt = DateTime.UtcNow;
-            read.WeatherId = weather.Weather![0].Id;
+            read.WeatherId = weather.Weather?[0].Id ?? 0;
             if (weather.Weather != null && weather.Weather.Count > 0)
             {
                 read.Text = weather.Weather[0].Main;
@@ -20,8 +19,8 @@ public static class WeatherExtension
             }
             if (weather.Sys != null)
             {
-                read.Sunrise = weather.Sys.Sunrise.ConvertUnixTimeToDateTime()?.ToUniversalTime();
-                read.Sunset = weather.Sys.Sunset.ConvertUnixTimeToDateTime()?.ToUniversalTime();
+                read.Sunrise = weather.Sys.Sunrise.ConvertUnixTimeToDateTime().ToUniversalTime();
+                read.Sunset = weather.Sys.Sunset.ConvertUnixTimeToDateTime().ToUniversalTime();
             }
             if (weather.Main != null)
             {

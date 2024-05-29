@@ -54,9 +54,14 @@ public class DirectusService
         return default;
     }
 
-    public async Task<TData?> GetItemsAsync<TData>(string collection) where TData : class
+    public async Task<TData?> GetItemsAsync<TData>(string collection, string? filter = null) where TData : class
     {
-        var response = await _client.GetAsync($"/items/{collection}");
+        var endpoint = $"/items/{collection}";
+        if (filter != null)
+        {
+            endpoint += $"?filter{filter}";
+        }
+        var response = await _client.GetAsync(endpoint);
         if (response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync();
@@ -74,7 +79,7 @@ public class DirectusService
         return default;
     }
 
-    public async Task<TData?> CreateItemAsync<TData>(string collection, TData item) where TData : class
+    public async Task<TResponse?> CreateItemAsync<TRequest, TResponse>(string collection, TRequest item) where TRequest : class where TResponse : class
     {
         var json = JsonSerializer.Serialize(item, new JsonSerializerOptions
         {
@@ -89,10 +94,11 @@ public class DirectusService
             var content = await response.Content.ReadAsStringAsync();
             if (!string.IsNullOrEmpty(content))
             {
-                var result = JsonSerializer.Deserialize<ResponseModel<TData>>(content, new JsonSerializerOptions
+                var result = JsonSerializer.Deserialize<ResponseModel<TResponse>>(content, new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,   
+                    NumberHandling = JsonNumberHandling.AllowReadingFromString,
                     AllowTrailingCommas = true
                 });
                 return result?.Data;
@@ -140,11 +146,11 @@ public class DirectusService
 
 
     #region Cached
-    public async Task<TData?> GetCachedItemsAsync<TData>(string collection, int minutes) where TData : class
+    public async Task<TData?> GetCachedItemsAsync<TData>(string collection, int minutes, string? filter = null) where TData : class
     {
-        var item = await _cache.GetAsync($"{collection}", async token => {
+        var item = await _cache.GetAsync($"{collection}-{filter}", async token => {
 
-            return await GetItemsAsync<TData>(collection);
+            return await GetItemsAsync<TData>(collection, filter);
         }, CacheOptions.GetExpiration(minutes));
         return item;
     }
