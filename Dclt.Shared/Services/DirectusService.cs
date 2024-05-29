@@ -16,15 +16,17 @@ public class DirectusService
     private readonly ILogger<DirectusService> _logger;
     private readonly IConfiguration _conf;
     private readonly HttpClient _client;
+    private readonly IDistributedCache _cache; 
 
-    public DirectusService(IHttpClientFactory http, ILogger<DirectusService> logger, IConfiguration conf)
+    public DirectusService(IHttpClientFactory http, ILogger<DirectusService> logger, IConfiguration conf, IDistributedCache cache)
     {
         _http = http;
         _logger = logger;
         _conf = conf;
+        _cache = cache;
 
-        var directusUrl = Environment.GetEnvironmentVariable("DIRECTUS_URL") ?? _conf["Environment:DIRECTUS_URL"] ?? "";
-        var accessToken = Environment.GetEnvironmentVariable("DIRECTUS_TOKEN") ?? _conf["Environment:DIRECTUS_TOKEN"] ?? "";
+        var directusUrl = Environment.GetEnvironmentVariable("DIRECTUS_URL") ?? _conf["Environment:DIRECTUS_URL"] ?? throw new InvalidOperationException("DIRECTUS_URL not found.");
+        var accessToken = Environment.GetEnvironmentVariable("DIRECTUS_TOKEN") ?? _conf["Environment:DIRECTUS_TOKEN"] ?? throw new InvalidOperationException("DIRECTUS_TOKEN not found.");
 
         _client = _http.CreateClient();
         _client = new HttpClient { BaseAddress = new Uri(directusUrl) };
@@ -138,9 +140,18 @@ public class DirectusService
 
 
     #region Cached
-    public async Task<TData?> GetCachedItemAsync<TData>(string collection, long id, IDistributedCache cache, int minutes) where TData : class
+    public async Task<TData?> GetCachedItemsAsync<TData>(string collection, int minutes) where TData : class
     {
-        var item = await cache.GetAsync($"{collection}-{id}", async token => {
+        var item = await _cache.GetAsync($"{collection}", async token => {
+
+            return await GetItemsAsync<TData>(collection);
+        }, CacheOptions.GetExpiration(minutes));
+        return item;
+    }
+
+    public async Task<TData?> GetCachedItemAsync<TData>(string collection, long id, int minutes) where TData : class
+    {
+        var item = await _cache.GetAsync($"{collection}-{id}", async token => {
 
             return await GetItemAsync<TData>(collection, id);
         }, CacheOptions.GetExpiration(minutes));

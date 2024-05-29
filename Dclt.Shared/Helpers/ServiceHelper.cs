@@ -1,5 +1,4 @@
-﻿using Dclt.Shared.Extensions;
-using Dclt.Shared.Services;
+﻿using Dclt.Shared.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +8,7 @@ public static class ServiceHelper
 {
     public static IServiceCollection AddDcltServices(this IServiceCollection services, IConfiguration conf)
     {
-        var redisUrl = Environment.GetEnvironmentVariable("REDIS_URL") ?? conf["Environment:REDIS_URL"];
+        var redisUrl = Environment.GetEnvironmentVariable("REDIS_URL") ?? conf["Environment:REDIS_URL"] ?? throw new InvalidOperationException("REDIS_URL not found.");
         services.AddStackExchangeRedisCache(options => options.Configuration = redisUrl);
         services.AddHttpClient();
         services.AddScoped<HttpService>();
