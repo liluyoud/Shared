@@ -16,6 +16,15 @@ public static class CacheExtension
         }
     }
 
+    public static async Task SetObjectAsync<T>(this IDistributedCache cache, string key, T? objectToCache, DistributedCacheEntryOptions options, CancellationToken cancellation = default)
+    {
+        if (objectToCache != null)
+        {
+            string objectJson = JsonSerializer.Serialize(objectToCache);
+            await cache.SetStringAsync(key, objectJson, options, cancellation);
+        }
+    }
+
     public static ValueTask<T> GetAsync<T>(this IDistributedCache cache, string key, Func<CancellationToken, ValueTask<T>> getMethod,
         DistributedCacheEntryOptions? options = null, CancellationToken cancellation = default)
         => GetAsyncShared<int, T>(cache, key, state: 0, getMethod, options, cancellation); // use dummy state
@@ -77,14 +86,17 @@ public static class CacheExtension
                 _ => throw new ArgumentException(nameof(getMethod)),
             };
             bytes = Serialize<T>(result);
-            if (options is null)
-            {   // not recommended; cache expiration should be considered
-                // important, usually
-                await cache.SetAsync(key, bytes, cancellation);
-            }
-            else
+            if (bytes is not null) // my implementation to not cache null values
             {
-                await cache.SetAsync(key, bytes, options, cancellation);
+                if (options is null)
+                {   // not recommended; cache expiration should be considered
+                    // important, usually
+                    await cache.SetAsync(key, bytes, cancellation);
+                }
+                else
+                {
+                    await cache.SetAsync(key, bytes, options, cancellation);
+                }
             }
             return result;
         }

@@ -59,7 +59,7 @@ public class DirectusService
         var endpoint = $"/items/{collection}";
         if (filter != null)
         {
-            endpoint += $"?filter{filter}";
+            endpoint += $"?filter={filter}";
         }
         var response = await _client.GetAsync(endpoint);
         if (response.IsSuccessStatusCode)
@@ -146,9 +146,9 @@ public class DirectusService
 
 
     #region Cached
-    public async Task<TData?> GetCachedItemsAsync<TData>(string collection, int minutes, string? filter = null) where TData : class
+    public async Task<TData?> GetCachedItemsAsync<TData>(string key, string collection, int minutes, string? filter = null) where TData : class
     {
-        var item = await _cache.GetAsync($"{collection}-{filter}", async token => {
+        var item = await _cache.GetAsync($"{collection}-{key}", async token => {
 
             return await GetItemsAsync<TData>(collection, filter);
         }, CacheOptions.GetExpiration(minutes));
