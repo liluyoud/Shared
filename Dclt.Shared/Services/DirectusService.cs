@@ -157,7 +157,7 @@ public class DirectusService
         var item = await _cache.GetAsync($"{collection}-{key}", async token => {
 
             return await GetItemsAsync<TData>(collection, filter);
-        }, CacheOptions.GetExpiration(minutes));
+        }, CacheOptions.SetExpiration(minutes));
         return item;
     }
 
@@ -166,7 +166,7 @@ public class DirectusService
         var item = await _cache.GetAsync($"{collection}-{id}", async token => {
 
             return await GetItemAsync<TData>(collection, id);
-        }, CacheOptions.GetExpiration(minutes));
+        }, CacheOptions.SetExpiration(minutes));
         return item;
     }
     #endregion

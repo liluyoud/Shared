@@ -136,7 +136,7 @@ public static class CacheOptions
     public static DistributedCacheEntryOptions OneHourExpiration => new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1) };
     public static DistributedCacheEntryOptions OneDayExpiration => new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1) };
 
-    public static DistributedCacheEntryOptions GetExpiration(int minutes)
+    public static DistributedCacheEntryOptions SetExpiration(int minutes)
     {
         return new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(minutes) };
     }

@@ -50,7 +50,7 @@ public class HttpService
         var item = await _cache.GetAsync($"weather-{latitude}-{longitude}", async token => {
 
             return await GetWeatherAsync(latitude, longitude);
-        }, CacheOptions.GetExpiration(Convert.ToInt32(_weatherExpiration)));
+        }, CacheOptions.SetExpiration(Convert.ToInt32(_weatherExpiration)));
         return item;
     }
 }
