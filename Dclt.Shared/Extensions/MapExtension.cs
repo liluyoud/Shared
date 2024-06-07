@@ -2,8 +2,21 @@
 
 namespace Dclt.Shared.Extensions;
 
-public static class WeatherExtension
+public static class MapExtension
 {
+    public static string? GetKey(this List<KeyValueModel>? list, string? key)
+    {
+        if (list != null && !string.IsNullOrEmpty(key))
+        {
+            var item = list.FirstOrDefault(s => s.Key.ToLower() == key.ToLower());
+            if (item != null)
+            {
+                return item.Value;
+            }
+        }
+        return null;
+    }
+
     public static WeatherModel? ToWeather(this OpenWeatherModel? weather)
     {
         if (weather != null)

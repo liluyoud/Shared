@@ -6,6 +6,15 @@ namespace Dclt.Shared.Extensions;
 
 public static class CacheExtension
 {
+    public static async Task<T?> GetObjectAsync<T>(this IDistributedCache cache, string key)
+    {
+        var cachedData = await cache.GetStringAsync(key);
+        if (string.IsNullOrEmpty(cachedData))
+        {
+            return default;
+        }
+        return JsonSerializer.Deserialize<T>(cachedData);
+    }
 
     public static async Task SetObjectAsync<T>(this IDistributedCache cache, string key, T? objectToCache, CancellationToken cancellation = default)
     {

@@ -1,10 +1,11 @@
 ﻿using System.Globalization;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Dclt.Shared.Extensions;
 
 public static class StringExtensions
 {
-    public static string UfDescricao(this string uf)
+    public static string ToUfDescription(this string uf)
     {
         switch (uf.ToUpper())
         {
@@ -39,53 +40,62 @@ public static class StringExtensions
         }
     }
 
-    public static string FormataCpf(this string cpf)
+    public static string? CleanForNumber(this string? text)
     {
-        cpf = cpf.Trim();
-        if (cpf.Length < 11)
+        if (text == null) return null;
+        var strArray = text.ToCharArray();
+        var strNumber = strArray[0] == '-' ? "-" : "";
+        foreach (var caracter in strArray)
         {
-            cpf = cpf.PadLeft(11, '0');
+            if (char.IsDigit(caracter))
+                strNumber += caracter;
         }
-
-        if (cpf.Length == 11)
-        {
-            cpf = $"{cpf.Substring(0, 3)}.{cpf.Substring(3, 3)}.{cpf.Substring(6, 3)}-{cpf.Substring(9, 2)}";
-        }
-        return cpf;
+        return strNumber;
     }
 
-    public static string PrimeiroNome(this string nome)
+    public static string? ToCpf(this string? text)
     {
-        return nome.Substring(0, nome.IndexOf(' '));
+        if (text == null) return null;
+        text = text.CleanForNumber();
+        if (text!.Length < 11)
+            text = text.PadLeft(11, '0');
+        else if (text!.Length > 11)
+            text = text.Substring(0, 11);
+        return $"{text.Substring(0, 3)}.{text.Substring(3, 3)}.{text.Substring(6, 3)}-{text.Substring(9, 2)}";
     }
 
-    public static string UltimoNome(this string nome)
+    public static string FirstName(this string name)
     {
-        return nome.Substring(nome.LastIndexOf(' ') + 1);
+        return name.Substring(0, name.IndexOf(' '));
     }
 
-    public static string NomeResumido(this string nome)
+    public static string LastName(this string name)
     {
-        nome = nome.Trim();
-        if (nome.IndexOf(' ') <= 0) return nome;
-        return PrimeiroNome(nome) + " " + UltimoNome(nome);
+        return name.Substring(name.LastIndexOf(' ') + 1);
     }
 
-    public static string PrimeiraMaiuscula(this string texto)
+    public static string ToShortName(this string name)
     {
-        return char.ToUpper(texto[0]) + texto.Substring(1);
+        name = name.Trim();
+        if (name.IndexOf(' ') <= 0) return name;
+        return FirstName(name) + " " + LastName(name);
     }
 
-    public static string? CapitalizarNome(this string? texto)
+    public static string ToFirstUppercase(this string text)
     {
-        if (texto == null) return null;
-        texto = texto.Trim();
-        if (texto == null || texto.Length == 0) return null;
+        return char.ToUpper(text[0]) + text.Substring(1);
+    }
+
+    public static string? Capitalize(this string? text)
+    {
+        if (text == null) return null;
+        text = text.Trim();
+        if (text == null || text.Length == 0) return null;
         string[] excecoes = new string[] { "e", "de", "da", "das", "do", "dos", "para", "em", "no", "na", "nos", "nas", "o", "a", "os", "as", "ao", "aos" };
         string[] excecoesMaiusculas = new string[] { "ii", "iii", "iv", "vi", "vii", "viii", "ix", "xi", "xii", "xiii" };
         var palavras = new Queue<string>();
         int i = 0;
-        foreach (var palavra in texto.Split(' '))
+        foreach (var palavra in text.Split(' '))
         {
             if (!string.IsNullOrEmpty(palavra))
             {

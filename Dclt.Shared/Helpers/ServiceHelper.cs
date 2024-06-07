@@ -6,13 +6,18 @@ namespace Dclt.Shared.Helpers;
 
 public static class ServiceHelper
 {
-    public static IServiceCollection AddDcltServices(this IServiceCollection services, IConfiguration conf)
+    public static void AddRedis(this IServiceCollection services, IConfiguration conf)
     {
         var redisUrl = Environment.GetEnvironmentVariable("REDIS_URL") ?? conf["Environment:REDIS_URL"] ?? throw new InvalidOperationException("REDIS_URL not found.");
         services.AddStackExchangeRedisCache(options => options.Configuration = redisUrl);
+    }
+
+    public static IServiceCollection AddDcltServices(this IServiceCollection services, IConfiguration conf)
+    {
+        services.AddRedis(conf);
         services.AddHttpClient();
-        services.AddScoped<HttpService>();
-        services.AddScoped<DirectusService>();
+        services.AddSingleton<HttpService>();
+        services.AddSingleton<DirectusService>();
         return services;
     }
 

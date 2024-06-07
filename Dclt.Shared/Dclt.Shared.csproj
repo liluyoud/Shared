@@ -13,7 +13,7 @@
     <RepositoryType>git</RepositoryType>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.0.9</Version>
+    <Version>1.0.15</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -44,7 +44,9 @@ public class DirectusService
             {
                 var result = JsonSerializer.Deserialize<ResponseModel<TData>>(content, new JsonSerializerOptions
                 {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    NumberHandling = JsonNumberHandling.AllowReadingFromString,
                     AllowTrailingCommas = true,
                     PropertyNameCaseInsensitive = true
                 });
@@ -69,7 +71,9 @@ public class DirectusService
             {
                 var result = JsonSerializer.Deserialize<ResponseModel<TData>>(content, new JsonSerializerOptions
                 {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    NumberHandling = JsonNumberHandling.AllowReadingFromString,
                     AllowTrailingCommas = true,
                     PropertyNameCaseInsensitive = true
                 });
@@ -111,8 +115,10 @@ public class DirectusService
     {
         var json = JsonSerializer.Serialize(item, new JsonSerializerOptions
         {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            NumberHandling = JsonNumberHandling.AllowReadingFromString,
+            AllowTrailingCommas = true
         });
 
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
