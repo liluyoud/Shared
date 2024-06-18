@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{EFD1E5BF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dclt.DemoConsole", "Dclt.DemoConsole\Dclt.DemoConsole.csproj", "{701C34D3-3681-49C6-B742-C9CCEF452687}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dclt.Directus", "Dclt.Directus\Dclt.Directus.csproj", "{F8386841-11CE-4EA9-8C5D-19B90280032D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApi", "DemoApi\DemoApi.csproj", "{713D920C-31D4-4804-869A-F4B7E77FA092}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +27,21 @@ Global
 		{701C34D3-3681-49C6-B742-C9CCEF452687}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{701C34D3-3681-49C6-B742-C9CCEF452687}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{701C34D3-3681-49C6-B742-C9CCEF452687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8386841-11CE-4EA9-8C5D-19B90280032D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8386841-11CE-4EA9-8C5D-19B90280032D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8386841-11CE-4EA9-8C5D-19B90280032D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8386841-11CE-4EA9-8C5D-19B90280032D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713D920C-31D4-4804-869A-F4B7E77FA092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713D920C-31D4-4804-869A-F4B7E77FA092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713D920C-31D4-4804-869A-F4B7E77FA092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713D920C-31D4-4804-869A-F4B7E77FA092}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{701C34D3-3681-49C6-B742-C9CCEF452687} = {EFD1E5BF-38F3-4C0E-A383-9B3AD628C2BB}
+		{713D920C-31D4-4804-869A-F4B7E77FA092} = {EFD1E5BF-38F3-4C0E-A383-9B3AD628C2BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD8C3562-C4E3-478A-9D13-4B62FE20B575}
