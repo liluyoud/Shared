@@ -1,98 +1,56 @@
-﻿using Dclt.Directus.Models;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace Dclt.Directus;
 
 public partial class DirectusClient
 {
-    // ?fields[]=sections.item:headings.id
-    public async Task<string> GetItemsAsync(string collection)
+    public async Task<JsonElement?> GetItemsAsync(string collection, string? query = null)
     {
-        //var queryString = queryParams != null ? BuildQueryString(queryParams) : string.Empty;
-        var response = await _client.GetAsync($"/items/{collection}");
-
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync();
-    }
-
-    public async Task<JsonElement> GetItemsAsync(string collection, string fields)
-    {
-        //var queryString = queryParams != null ? BuildQueryString(queryParams) : string.Empty;
-        var url = $"/items/{collection}?{fields}";
+        var url = $"/items/{collection}";
+        if (!string.IsNullOrEmpty(query))
+            url += "?" + query ;
         var response = await _client.GetAsync(url);
-        response.EnsureSuccessStatusCode();
-        var content = await response.Content.ReadAsStringAsync();
-        var result = JsonSerializer.Deserialize<JsonElement>(content);
-        return result.GetProperty("data");
-    }
-
-
-    public async Task<string> GetItemsAsync(string collection, Dictionary<string, string> queryParams = null)
-    {
-        var queryString = queryParams != null ? BuildQueryString(queryParams) : string.Empty;
-        var response = await _client.GetAsync($"/items/{collection}{queryString}");
-
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync();
-    }
-
-    private string BuildQueryString(Dictionary<string, string> queryParams)
-    {
-        var queryString = "?";
-        foreach (var param in queryParams)
+        if (response.IsSuccessStatusCode)
         {
-            queryString += $"{param.Key}={param.Value}&";
+            var content = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<JsonElement>(content);
+            return result.GetProperty("data");
         }
-        return queryString.TrimEnd('&');
+        return null;
     }
 
-    public Dictionary<string, string> CreateFieldsQuery(string fields)
+    public async Task<T?> GetItemsAsync<T>(string collection, string? query = null) where T : class
     {
-        return new Dictionary<string, string> { { "fields", fields } };
-    }
-
-    public Dictionary<string, string> CreateFilterQuery(Dictionary<string, object> filters)
-    {
-        return new Dictionary<string, string> { { "filter", JsonSerializer.Serialize(filters) } };
-    }
-
-    public Dictionary<string, string> CreateSortQuery(string sort)
-    {
-        return new Dictionary<string, string> { { "sort", sort } };
-    }
-
-    public Dictionary<string, string> CreateLimitQuery(int limit)
-    {
-        return new Dictionary<string, string> { { "limit", limit.ToString() } };
-    }
-
-    public Dictionary<string, string> CreateOffsetQuery(int offset)
-    {
-        return new Dictionary<string, string> { { "offset", offset.ToString() } };
-    }
-
-    public Dictionary<string, string> CreatePageQuery(int page)
-    {
-        return new Dictionary<string, string> { { "page", page.ToString() } };
-    }
-
-    public Dictionary<string, string> CreateSearchQuery(string search)
-    {
-        return new Dictionary<string, string> { { "search", search } };
-    }
-
-    public Dictionary<string, string> CreateDeepQuery(Dictionary<string, object> deepParams)
-    {
-        return new Dictionary<string, string> { { "deep", JsonSerializer.Serialize(deepParams) } };
-    }
-
-    public Dictionary<string, string> CreateAggregateQuery(Dictionary<string, string> aggregates)
-    {
-        var aggregateParams = new Dictionary<string, string>();
-        foreach (var aggregate in aggregates)
+        var url = $"/items/{collection}";
+        if (!string.IsNullOrEmpty(query))
+            url += "?" + query;
+        var response = await _client.GetAsync(url);
+        if (response.IsSuccessStatusCode)
         {
-            aggregateParams.Add($"aggregate[{aggregate.Key}]", aggregate.Value);
+            var content = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<JsonElement>(content);
+            var data = result.GetProperty("data");
+            var json = JsonSerializer.Serialize(data);
+            return JsonSerializer.Deserialize<T>(json, JsonSerializeOptions);
         }
-        return aggregateParams;
+        return default(T);
     }
+
+    public async Task<string?> GetItemsAsStringAsync(string collection, string? query = null)
+    {
+        var url = $"/items/{collection}";
+        if (!string.IsNullOrEmpty(query))
+            url += "?" + query;
+        var response = await _client.GetAsync(url);
+        if (response.IsSuccessStatusCode)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<JsonElement>(content);
+            return result.GetProperty("data").GetRawText();
+        }
+        return null;
+    }
+
+
+
 }

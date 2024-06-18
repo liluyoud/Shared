@@ -5,17 +5,13 @@ namespace Dclt.Shared.Extensions;
 
 public static class EnumExtension
 {
-    public static string GetDescription(this Enum value)
+    public static string Description(this Enum value)
     {
-        Type type = value.GetType();
-        MemberInfo[] memberInfo = type.GetMember(value.ToString());
-        if (memberInfo != null && memberInfo.Length > 0)
+        FieldInfo? field = value.GetType().GetField(value.ToString());
+        if (field != null)
         {
-            object[] attrs = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-            if (attrs != null && attrs.Length > 0)
-            {
-                return ((DescriptionAttribute)attrs[0]).Description;
-            }
+            DescriptionAttribute? attribute = field.GetCustomAttribute(typeof(DescriptionAttribute)) as DescriptionAttribute;
+            if (attribute != null) return attribute.Description;
         }
         return value.ToString();
     }
@@ -24,6 +20,4 @@ public static class EnumExtension
     {
         return Convert.ToInt32(value);
     }
-
-
 }

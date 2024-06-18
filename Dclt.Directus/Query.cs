@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace Dclt.Directus;
+﻿namespace Dclt.Directus;
 
 public class Query
 {
@@ -10,15 +8,9 @@ public class Query
     private int? _offset;
     private int? _page;
     private int? _limit;
+    private string? _export;  
 
-    //public Query Fields(string fields)
-    //{
-    //    if (!string.IsNullOrWhiteSpace(fields))
-    //    {
-    //        _fields = fields.Split(',').Select(f => f.Trim()).ToArray();
-    //    }
-    //    return this;
-    //}
+    public DirectusFilter Filter { get; set; } = new DirectusFilter();
 
     public Query Search(string search)
     {
@@ -40,6 +32,7 @@ public class Query
             _sorts = sorts;
         return this;
     }
+
     public Query Limit(int limit)
     {
         if (limit > 0)
@@ -61,16 +54,23 @@ public class Query
         return this;
     }
 
+    public Query Export(string export)
+    {
+        if (!string.IsNullOrWhiteSpace(export))
+            _export = export;
+        return this;
+    }
+
     public string Build()
     {
         var query = "";
-        if (_search != null && _search.Length > 0)
+        if (_search != null && !string.IsNullOrWhiteSpace(_search))
             query += "&search=" + _search;
 
-        if (_fields != null && _fields.Length > 0)
+        if (_fields != null && !string.IsNullOrWhiteSpace(_fields))
             query += "&fields=" + _fields;
 
-        if (_sorts != null && _sorts.Length > 0)
+        if (_sorts != null && !string.IsNullOrWhiteSpace(_sorts))
             query += "&sort=" + _sorts;
 
         if (_fields != null && _limit > 0) 
@@ -81,6 +81,13 @@ public class Query
 
         if (_page != null && _page > 0)
             query += "&page=" + _page;
+
+        if (_export != null && !string.IsNullOrWhiteSpace(_export))
+            query += "&export=" + _export;
+
+        var filter = Filter.ToJson();
+        if (filter != null && filter != "{}")
+            query += "&filter=" + filter;
 
         return query.Substring(1);
 

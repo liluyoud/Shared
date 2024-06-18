@@ -9,7 +9,7 @@ public static class EnumHelper
     {
         return Enum.GetValues(typeof(TEnum))
                    .Cast<TEnum>()
-                   .Select(e => new EnumItem(Id: e.GetValue(), Text: e.GetDescription()))
+                   .Select(e => new EnumItem(Id: e.GetValue(), Text: e.Description()))
                    .ToList();
     }
 }

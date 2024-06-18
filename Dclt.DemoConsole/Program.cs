@@ -1,25 +1,50 @@
 ﻿using Dclt.Directus;
 using Dclt.Shared.Models;
+using System.Text.Json.Serialization;
 
 await TesteQuery();
+await TesteMultipleClients();
 
 async Task TesteQuery()
 {
+    //var query = new Query()
+    //    .Fields("name,type")
+    //    .Search("buritis")
+    //    .Sort("name")
+    //    .Page(1)
+    //    .Offset(3)
+    //    .Limit(3)
+    //    .Build();
+
+    var filter1 = new DirectusFilter().Equal("type", "Tempo");
+    var filter2 = new DirectusFilter().Equal("status", "published");
+    var filter = new DirectusFilter().And([filter1,filter2]);
+    
     var query = new Query()
-        .Fields("name,type")
-        .Search("buritis")
-        .Sort("name")
-        .Page(1)
-        .Offset(3)
-        .Limit(3)
+        .Fields("name,type,settings,date_created")
+        //.FilterAnd([filter1, filter2])
+        //.Filter("name", Operation.Contains, "mac")
+        .Filter("type", Operation.Equal, "Tempo")
+        .Filter("status", Operation.Equal, "published")
         .Build();
     Console.WriteLine(query);
     Console.ReadLine();
 
     var client = new DirectusClient("https://rovema.dclt.com.br", "8SyRFwK5bcl1WPPIpOjJS7nprTSNfXUe");
-    //var items = await client.GetItemsAsync("rpas");
-    var items = await client.GetItemsAsync("rpas",query);
-    Console.WriteLine(items);
+    var rpas = await client.GetItemsAsync<IEnumerable<RpaModel>>("rpas", query);
+    
+    if (rpas != null) {
+        foreach (var rpa in rpas)
+        {
+            Console.WriteLine(" - " + rpa.Name);
+            Console.WriteLine("   " + rpa.Type);
+            Console.WriteLine("   " + rpa.DateCreated);
+            if (rpa.Settings != null) {
+                foreach (var setting in rpa.Settings)
+                    Console.WriteLine($"    .  {setting.Key}: {setting.Value}");
+            }
+        }
+    }
 }
 
 async Task TesteMultipleClients()
@@ -110,4 +135,14 @@ async Task TesteMultipleClients()
 //    Console.WriteLine("Failed to authenticate.");
 //}
 
-public record RpaModel(int Id, string Name, string Type, List<KeyValueModel>? Settings);
+public class RpaModel
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public string? Type { get; set; }
+
+    [JsonPropertyName("date_created")]
+    public DateTime? DateCreated { get; set; }
+
+    public List<KeyValueModel>? Settings { get; set; }
+}

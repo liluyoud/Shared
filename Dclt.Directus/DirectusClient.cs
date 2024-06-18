@@ -10,9 +10,7 @@ public partial class DirectusClient
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        NumberHandling = JsonNumberHandling.AllowReadingFromString,
-        AllowTrailingCommas = true,
-        PropertyNameCaseInsensitive = true
+        NumberHandling = JsonNumberHandling.AllowReadingFromString
     };
 
     private string? baseUrl;
