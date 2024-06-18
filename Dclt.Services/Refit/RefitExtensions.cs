@@ -2,7 +2,7 @@
 using Refit;
 using System.Net.Http.Headers;
 
-namespace Dclt.Shared.Extensions;
+namespace Dclt.Services.Refit;
 
 public static class RefitExtensions
 {

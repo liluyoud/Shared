@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
+using Dclt.Shared.Extensions;
 
-namespace Dclt.Shared.Models;
+namespace Dclt.Services.OpenWeather;
 
 public class OpenWeatherModel
 {
@@ -67,6 +68,45 @@ public class OpenWeatherModel
         public string? Country { get; set; }
         public long? Sunrise { get; set; }
         public long? Sunset { get; set; }
+    }
+
+    public Weather ToWeather()
+    {
+        var weather = new Weather();
+        weather.ReadAt = DateTime.UtcNow;
+        weather.WeatherId = Weather?[0].Id ?? 0;
+        if (Weather != null && Weather.Count > 0)
+        {
+            weather.Text = Weather[0].Main;
+            weather.Description = Weather[0].Description;
+            weather.Icon = Weather[0].Icon;
+        }
+        if (Sys != null)
+        {
+            weather.Sunrise = Sys.Sunrise.ConvertUnixTimeToDateTime().ToUniversalTime();
+            weather.Sunset = Sys.Sunset.ConvertUnixTimeToDateTime().ToUniversalTime();
+        }
+        if (Main != null)
+        {
+            weather.TempC = Main.Temp;
+            weather.FeelsC = Main.Feels_like;
+            weather.TempMax = Main.Temp_max;
+            weather.TempMin = Main.Temp_min;
+            weather.PressureHpa = Main.Pressure;
+            weather.SeaLevel = Main.Sea_level;
+            weather.GroundLevel = Main.Grnd_level;
+            weather.Humidity = Main.Humidity;
+        }
+        if (Wind != null)
+        {
+            weather.WindSpeed = Wind.Speed * 3.6;
+            weather.WindDirection = Wind.Deg;
+        }
+
+        weather.Clouds = Clouds != null ? Clouds.All : null;
+        weather.Rain1h = Rain != null ? Rain._1h : null;
+        weather.Visibility = Visibility;
+        return weather;
     }
 }
 

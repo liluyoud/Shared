@@ -1,7 +1,7 @@
-﻿namespace Dclt.Shared.Models;
+﻿namespace Dclt.Services.OpenWeather;
 
-public class WeatherModel 
-{    
+public class Weather
+{
     public DateTime ReadAt { get; set; }
     public int WeatherId { get; set; }
     public string? Text { get; set; }

@@ -19,9 +19,9 @@ app.UseHttpsRedirection();
 
 app.MapGet("/rpas", async (DirectusService directus) =>
 {
-    if (directus != null && directus.Client != null)
+    if (directus != null && directus._client != null)
     {
-        var item = await directus.Client.GetItemAsync<dynamic>("rpas", 1);
+        var item = await directus._client.GetItemAsync<dynamic>("rpas", 1);
         return Results.Ok(item);
     }
     return Results.NotFound();

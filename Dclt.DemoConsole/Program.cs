@@ -3,7 +3,7 @@ using Dclt.Shared.Models;
 using System.Text.Json.Serialization;
 
 await TesteQuery();
-await TesteMultipleClients();
+//await TesteMultipleClients();
 
 async Task TesteQuery()
 {
@@ -144,5 +144,5 @@ public class RpaModel
     [JsonPropertyName("date_created")]
     public DateTime? DateCreated { get; set; }
 
-    public List<KeyValueModel>? Settings { get; set; }
+    public List<KeyValue>? Settings { get; set; }
 }

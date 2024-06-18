@@ -19,7 +19,7 @@ public partial class DirectusClient
         return null;
     }
 
-    public async Task<T?> GetItemsAsync<T>(string collection, string? query = null) where T : class
+    public async Task<T?> GetItemsAsync<T>(string collection, string? query = null)
     {
         var url = $"/items/{collection}";
         if (!string.IsNullOrEmpty(query))
