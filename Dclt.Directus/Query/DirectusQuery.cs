@@ -1,6 +1,6 @@
 ﻿namespace Dclt.Directus;
 
-public class Query
+public class DirectusQuery
 {
     private string? _fields;
     private string? _sorts;
@@ -12,49 +12,49 @@ public class Query
 
     public DirectusFilter Filter { get; set; } = new DirectusFilter();
 
-    public Query Search(string search)
+    public DirectusQuery Search(string search)
     {
         if (!string.IsNullOrWhiteSpace(search))
             _search = search;
         return this;
     }
 
-    public Query Fields(string fields)
+    public DirectusQuery Fields(string fields)
     {
         if (!string.IsNullOrWhiteSpace(fields))
             _fields = fields;
         return this;
     }
 
-    public Query Sort(string sorts)
+    public DirectusQuery Sort(string sorts)
     {
         if (!string.IsNullOrWhiteSpace(sorts))
             _sorts = sorts;
         return this;
     }
 
-    public Query Limit(int limit)
+    public DirectusQuery Limit(int limit)
     {
         if (limit > 0)
             _limit = limit;
         return this;
     }
 
-    public Query Offset(int offset)
+    public DirectusQuery Offset(int offset)
     {
         if (offset > 0)
             _offset = offset;
         return this;
     }
 
-    public Query Page(int page)
+    public DirectusQuery Page(int page)
     {
         if (page > 0)
             _page = page;
         return this;
     }
 
-    public Query Export(string export)
+    public DirectusQuery Export(string export)
     {
         if (!string.IsNullOrWhiteSpace(export))
             _export = export;

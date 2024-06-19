@@ -5,7 +5,6 @@ namespace Dclt.Directus;
 
 public class DirectusFilter
 {
-    public const string TESTE = "oi";
     private readonly Dictionary<string, object> _filters;
 
     public DirectusFilter()
