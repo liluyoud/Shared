@@ -1,9 +1,20 @@
 ﻿using Dclt.Directus;
 using Dclt.Shared.Models;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
-await TesteQuery();
+await TesteUser();
+//await TesteQuery();
 //await TesteMultipleClients();
+
+async Task TesteUser()
+{
+    var client = new DirectusClient("https://rovema.dclt.com.br");
+    var user = await client.AuthenticateAndGetUserAsync("liluyoud@rovemaenergia.com.br", "Rovema@123");
+    var jsonUser = JsonSerializer.Serialize(user, new JsonSerializerOptions() { WriteIndented = true });
+    Console.WriteLine(jsonUser);
+    Console.ReadLine();
+}
 
 async Task TesteQuery()
 {

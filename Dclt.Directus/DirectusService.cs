@@ -39,6 +39,26 @@ public class DirectusService : IDirectusService
         }
     }
 
+    // Autorizarion
+    public async Task<bool> AuthenticateAsync(string mail, string pwd)
+        => (_client != null) ? await _client.AuthenticateAsync(mail, pwd) : throw new InvalidOperationException("Directus client do not exists");
+
+    public async Task<DirectusUser?> AuthenticateAndGetUserAsync(string mail, string pwd)
+        => (_client != null) ? await _client.AuthenticateAndGetUserAsync(mail, pwd) : throw new InvalidOperationException("Directus client do not exists");
+
+    public async Task<bool> RefreshTokenAsync()
+        => (_client != null) ? await _client.RefreshTokenAsync() : throw new InvalidOperationException("Directus client do not exists");
+
+    public async Task<bool> LogoutAsync()
+        => (_client != null) ? await _client.LogoutAsync() : throw new InvalidOperationException("Directus client do not exists");
+
+    public async Task<bool> RequestPasswordResetAsync(string email)
+        => (_client != null) ? await _client.RequestPasswordResetAsync(email) : throw new InvalidOperationException("Directus client do not exists");
+
+    public async Task<bool> ResetPasswordAsync(string token, string newPassword)
+        => (_client != null) ? await _client.ResetPasswordAsync(token, newPassword) : throw new InvalidOperationException("Directus client do not exists");
+
+    // Items
     public async Task<T?> GetItemsAsync<T>(string collection, string? query = null) 
         => (_client != null) ? await _client.GetItemsAsync<T>(collection, query) : throw new InvalidOperationException("Directus client do not exists");
 
