@@ -67,7 +67,7 @@ public class DirectusAuthStateProvider : AuthenticationStateProvider
         CurrentUser = new();
     }
 
-    public async Task LoginAsync(string username, string password)
+    public async Task<bool> LoginAsync(string username, string password)
     {
         // Make Api Call with these Username and PAssword
         // and obtain the User Info from the api server
@@ -77,7 +77,9 @@ public class DirectusAuthStateProvider : AuthenticationStateProvider
             await _localStorage.SetItemAsync(UserStorageKey, user);
             var authState = GenerateAuthState(user);
             NotifyAuthenticationStateChanged(Task.FromResult(authState));
+            return true;
         }
+        return false;
     }
 
     public async Task LogoutAsync()
