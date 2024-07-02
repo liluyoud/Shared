@@ -4,10 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <Authors>Liluyoud Cury de Lacerda</Authors>
     <Company>DCL Tecnologia</Company>
     <Description>Common used services</Description>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

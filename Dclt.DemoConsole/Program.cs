@@ -16,47 +16,47 @@ async Task TesteUser()
     Console.ReadLine();
 }
 
-async Task TesteQuery()
-{
-    //var query = new Query()
-    //    .Fields("name,type")
-    //    .Search("buritis")
-    //    .Sort("name")
-    //    .Page(1)
-    //    .Offset(3)
-    //    .Limit(3)
-    //    .Build();
+//async Task TesteQuery()
+//{
+//    //var query = new Query()
+//    //    .Fields("name,type")
+//    //    .Search("buritis")
+//    //    .Sort("name")
+//    //    .Page(1)
+//    //    .Offset(3)
+//    //    .Limit(3)
+//    //    .Build();
 
-    var filter1 = new DirectusFilter().Equal("type", "Tempo");
-    var filter2 = new DirectusFilter().Equal("status", "published");
-    var filter = new DirectusFilter().And([filter1,filter2]);
+//    var filter1 = new DirectusFilter().Equal("type", "Tempo");
+//    var filter2 = new DirectusFilter().Equal("status", "published");
+//    var filter = new DirectusFilter().And([filter1,filter2]);
     
-    var query = new Query()
-        .Fields("name,type,settings,date_created")
-        //.FilterAnd([filter1, filter2])
-        //.Filter("name", Operation.Contains, "mac")
-        .Filter("type", Operation.Equal, "Tempo")
-        .Filter("status", Operation.Equal, "published")
-        .Build();
-    Console.WriteLine(query);
-    Console.ReadLine();
+//    var query = new Query()
+//        .Fields("name,type,settings,date_created")
+//        //.FilterAnd([filter1, filter2])
+//        //.Filter("name", Operation.Contains, "mac")
+//        .Filter("type", Operation.Equal, "Tempo")
+//        .Filter("status", Operation.Equal, "published")
+//        .Build();
+//    Console.WriteLine(query);
+//    Console.ReadLine();
 
-    var client = new DirectusClient("https://rovema.dclt.com.br", "8SyRFwK5bcl1WPPIpOjJS7nprTSNfXUe");
-    var rpas = await client.GetItemsAsync<IEnumerable<RpaModel>>("rpas", query);
+//    var client = new DirectusClient("https://rovema.dclt.com.br", "8SyRFwK5bcl1WPPIpOjJS7nprTSNfXUe");
+//    var rpas = await client.GetItemsAsync<IEnumerable<RpaModel>>("rpas", query);
     
-    if (rpas != null) {
-        foreach (var rpa in rpas)
-        {
-            Console.WriteLine(" - " + rpa.Name);
-            Console.WriteLine("   " + rpa.Type);
-            Console.WriteLine("   " + rpa.DateCreated);
-            if (rpa.Settings != null) {
-                foreach (var setting in rpa.Settings)
-                    Console.WriteLine($"    .  {setting.Key}: {setting.Value}");
-            }
-        }
-    }
-}
+//    if (rpas != null) {
+//        foreach (var rpa in rpas)
+//        {
+//            Console.WriteLine(" - " + rpa.Name);
+//            Console.WriteLine("   " + rpa.Type);
+//            Console.WriteLine("   " + rpa.DateCreated);
+//            if (rpa.Settings != null) {
+//                foreach (var setting in rpa.Settings)
+//                    Console.WriteLine($"    .  {setting.Key}: {setting.Value}");
+//            }
+//        }
+//    }
+//}
 
 async Task TesteMultipleClients()
 {
