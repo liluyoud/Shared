@@ -5,7 +5,7 @@ namespace Dclt.Directus;
 
 public partial class DirectusClient
 {
-    public async Task<T?> GetItemAsync<T>(string collection, int id)
+    public async Task<T?> GetItemAsync<T>(string collection, long id)
     {
         var response = await _client.GetAsync($"/items/{collection}/{id}");
         if (response.IsSuccessStatusCode)

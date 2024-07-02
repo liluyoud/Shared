@@ -12,6 +12,7 @@ public interface IDirectusService
 
 
     // Items
+    Task<T?> GetItemAsync<T>(string collection, long id);
     Task<T?> GetItemsAsync<T>(string collection, string? query = null);
     Task<bool> CreateItemAsync<T>(string collection, T item);
 }

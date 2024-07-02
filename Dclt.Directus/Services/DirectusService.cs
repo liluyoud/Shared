@@ -59,6 +59,9 @@ public class DirectusService : IDirectusService
         => (_client != null) ? await _client.ResetPasswordAsync(token, newPassword) : throw new InvalidOperationException("Directus client do not exists");
 
     // Items
+    public async Task<T?> GetItemAsync<T>(string collection, long id)
+    => (_client != null) ? await _client.GetItemAsync<T>(collection, id) : throw new InvalidOperationException("Directus client do not exists");
+
     public async Task<T?> GetItemsAsync<T>(string collection, string? query = null) 
         => (_client != null) ? await _client.GetItemsAsync<T>(collection, query) : throw new InvalidOperationException("Directus client do not exists");
 

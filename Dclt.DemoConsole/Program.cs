@@ -1,11 +1,28 @@
-﻿using Dclt.Directus;
-using Dclt.Shared.Models;
+﻿using Dclt.DemoConsole;
+using Dclt.Directus;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
-await TesteUser();
+await TesteCache();
+//await TesteUser();
 //await TesteQuery();
 //await TesteMultipleClients();
+
+async Task TesteCache()
+{
+    var client = new DirectusClient("https://pme.dclt.com.br", "t-FdgNmL1halTNeWwOISgvkl35Y94QjX");
+
+    var cache = await client.GetItemAsync<CacheModel<ReadInverterModel>>("cache", 5);
+    
+    var read = cache?.Data;
+
+    var jsonOptions = new JsonSerializerOptions() { WriteIndented = true };
+
+    var jsonCache = JsonSerializer.Serialize(cache, jsonOptions);
+    var jsonRead = JsonSerializer.Serialize(read, jsonOptions);
+
+    Console.WriteLine(jsonCache);
+    Console.WriteLine(jsonRead);
+}
 
 async Task TesteUser()
 {
@@ -146,14 +163,4 @@ async Task TesteMultipleClients()
 //    Console.WriteLine("Failed to authenticate.");
 //}
 
-public class RpaModel
-{
-    public int Id { get; set; }
-    public string? Name { get; set; }
-    public string? Type { get; set; }
 
-    [JsonPropertyName("date_created")]
-    public DateTime? DateCreated { get; set; }
-
-    public List<KeyValue>? Settings { get; set; }
-}
