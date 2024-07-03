@@ -6,7 +6,7 @@ namespace Dclt.DemoConsole;
 public class CacheModel<T>
 {
     [JsonPropertyName("id")]
-    public double? Id { get; set; }
+    public long? Id { get; set; }
 
     [JsonPropertyName("updated_at")]
     public DateTime? UpdatedAt { get; set; }
