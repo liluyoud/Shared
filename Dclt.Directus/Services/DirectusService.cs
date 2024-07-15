@@ -15,8 +15,8 @@ public class DirectusService : IDirectusService
     {
         _http = http ?? throw new ArgumentNullException("IHttpClientFactory is not initialized");
         _conf = conf ?? throw new ArgumentNullException("IConfiguration is not initialized"); 
-        _baseUrl = Environment.GetEnvironmentVariable("DIRECTUS_URL") ?? _conf["Environment:DIRECTUS_URL"];
-        _permanentToken = Environment.GetEnvironmentVariable("DIRECTUS_TOKEN") ?? _conf["Environment:DIRECTUS_TOKEN"];
+        _baseUrl = Environment.GetEnvironmentVariable("DIRECTUS_URL") ?? _conf["Environment:DIRECTUS_URL"] ?? throw new InvalidOperationException("DIRECTUS_URL not found.");
+        _permanentToken = Environment.GetEnvironmentVariable("DIRECTUS_TOKEN") ?? _conf["Environment:DIRECTUS_TOKEN"] ?? throw new InvalidOperationException("DIRECTUS_TOKEN not found.");
 
         if (!string.IsNullOrEmpty(_baseUrl))
         {
@@ -59,8 +59,8 @@ public class DirectusService : IDirectusService
         => (_client != null) ? await _client.ResetPasswordAsync(token, newPassword) : throw new InvalidOperationException("Directus client do not exists");
 
     // Items
-    public async Task<T?> GetItemAsync<T>(string collection, long id)
-    => (_client != null) ? await _client.GetItemAsync<T>(collection, id) : throw new InvalidOperationException("Directus client do not exists");
+    public async Task<T?> GetItemAsync<T>(string collection, long id, string? query = null)
+    => (_client != null) ? await _client.GetItemAsync<T>(collection, id, query) : throw new InvalidOperationException("Directus client do not exists");
 
     public async Task<T?> GetItemsAsync<T>(string collection, string? query = null) 
         => (_client != null) ? await _client.GetItemsAsync<T>(collection, query) : throw new InvalidOperationException("Directus client do not exists");

@@ -5,9 +5,12 @@ namespace Dclt.Directus;
 
 public partial class DirectusClient
 {
-    public async Task<T?> GetItemAsync<T>(string collection, long id)
+    public async Task<T?> GetItemAsync<T>(string collection, long id, string? query = null)
     {
-        var response = await _client.GetAsync($"/items/{collection}/{id}");
+        var url = $"/items/{collection}/{id}";
+        if (!string.IsNullOrEmpty(query))
+            url += "?" + query;
+        var response = await _client.GetAsync(url);
         if (response.IsSuccessStatusCode)
         {
             var responseContent = await response.Content.ReadAsStringAsync();
