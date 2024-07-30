@@ -68,4 +68,6 @@ public class DirectusService : IDirectusService
     public async Task<bool> CreateItemAsync<T>(string collection, T item)
         => (_client != null) ? await _client.CreateItemAsync<T>(collection, item) : throw new InvalidOperationException("Directus client do not exists");
 
+    public async Task<string?> GetFileAsTextAsync(string file)
+        => (_client != null) ? await _client.GetFileAsTextAsync(file) : throw new InvalidOperationException("Directus client do not exists");
 }

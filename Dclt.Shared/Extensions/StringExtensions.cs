@@ -90,7 +90,7 @@ public static class StringExtensions
         if (text == null) return null;
         text = text.Trim();
         if (text == null || text.Length == 0) return null;
-        string[] excecoes = new string[] { "e", "de", "da", "das", "do", "dos", "para", "em", "no", "na", "nos", "nas", "o", "a", "os", "as", "ao", "aos" };
+        string[] excecoes = new string[] { "e", "de", "da", "das", "do", "dos", "para", "em", "no", "na", "nos", "nas", "o", "a", "os", "as", "ao", "aos", "à", "às" };
         string[] excecoesMaiusculas = new string[] { "ii", "iii", "iv", "vi", "vii", "viii", "ix", "xi", "xii", "xiii" };
         var palavras = new Queue<string>();
         int i = 0;
