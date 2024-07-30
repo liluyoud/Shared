@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Dclt.Directus.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace Dclt.Directus;
 
@@ -68,6 +69,11 @@ public class DirectusService : IDirectusService
     public async Task<bool> CreateItemAsync<T>(string collection, T item)
         => (_client != null) ? await _client.CreateItemAsync<T>(collection, item) : throw new InvalidOperationException("Directus client do not exists");
 
+
+    // files
     public async Task<string?> GetFileAsTextAsync(string file)
         => (_client != null) ? await _client.GetFileAsTextAsync(file) : throw new InvalidOperationException("Directus client do not exists");
+
+    public async Task<DirectusFile?> GetFileAsync(string file)
+        => (_client != null) ? await _client.GetFileAsync(file) : throw new InvalidOperationException("Directus client do not exists");
 }

@@ -63,6 +63,17 @@ public static class StringExtensions
         return $"{text.Substring(0, 3)}.{text.Substring(3, 3)}.{text.Substring(6, 3)}-{text.Substring(9, 2)}";
     }
 
+    public static string? ToCnpj(this string? text)
+    {
+        if (text == null) return null;
+        text = text.CleanForNumber();
+        if (text!.Length < 14)
+            text = text.PadLeft(14, '0');
+        else if (text!.Length > 14)
+            text = text.Substring(0, 14);
+        return $"{text.Substring(0, 2)}.{text.Substring(2, 3)}.{text.Substring(5, 3)}/{text.Substring(8, 4)}-{text.Substring(12, 2)}";
+    }
+
     public static string FirstName(this string name)
     {
         return name.Substring(0, name.IndexOf(' '));
