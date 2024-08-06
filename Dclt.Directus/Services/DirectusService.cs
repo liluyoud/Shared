@@ -59,6 +59,7 @@ public class DirectusService : IDirectusService
     public async Task<bool> ResetPasswordAsync(string token, string newPassword)
         => (_client != null) ? await _client.ResetPasswordAsync(token, newPassword) : throw new InvalidOperationException("Directus client do not exists");
 
+
     // Items
     public async Task<T?> GetItemAsync<T>(string collection, long id, string? query = null)
     => (_client != null) ? await _client.GetItemAsync<T>(collection, id, query) : throw new InvalidOperationException("Directus client do not exists");
@@ -69,6 +70,9 @@ public class DirectusService : IDirectusService
     public async Task<bool> CreateItemAsync<T>(string collection, T item)
         => (_client != null) ? await _client.CreateItemAsync<T>(collection, item) : throw new InvalidOperationException("Directus client do not exists");
 
+    public async Task<bool> CreateItemsAsync<T>(string collection, List<T> items)
+    => (_client != null) ? await _client.CreateItemsAsync<T>(collection, items) : throw new InvalidOperationException("Directus client do not exists");
+
 
     // files
     public async Task<string?> GetFileAsTextAsync(string file)
@@ -76,4 +80,8 @@ public class DirectusService : IDirectusService
 
     public async Task<DirectusFile?> GetFileAsync(string file)
         => (_client != null) ? await _client.GetFileAsync(file) : throw new InvalidOperationException("Directus client do not exists");
+
+    public async Task<DirectusFile?> UpdateFileAsync<T>(string file, T item)
+    => (_client != null) ? await _client.UpdateFileAsync(file, item) : throw new InvalidOperationException("Directus client do not exists");
+
 }

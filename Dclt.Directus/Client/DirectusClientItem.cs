@@ -29,6 +29,15 @@ public partial class DirectusClient
         return response.IsSuccessStatusCode;
     }
 
+    public async Task<bool> CreateItemsAsync<T>(string collection, List<T> items)
+    {
+        var response = await _client.PostAsync($"/items/{collection}",
+            new StringContent(JsonSerializer.Serialize(items), Encoding.UTF8, "application/json"));
+
+        return response.IsSuccessStatusCode;
+    }
+
+
     public async Task<bool> UpdateItemAsync<T>(string collection, int id, T item)
     {
         var response = await _client.PatchAsync($"/items/{collection}/{id}",
