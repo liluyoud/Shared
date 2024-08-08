@@ -71,7 +71,7 @@ public class DirectusService : IDirectusService
         => (_client != null) ? await _client.CreateItemAsync<T>(collection, item) : throw new InvalidOperationException("Directus client do not exists");
 
     public async Task<bool> CreateItemsAsync<T>(string collection, List<T> items)
-    => (_client != null) ? await _client.CreateItemsAsync<T>(collection, items) : throw new InvalidOperationException("Directus client do not exists");
+        => (_client != null) ? await _client.CreateItemsAsync<T>(collection, items) : throw new InvalidOperationException("Directus client do not exists");
 
 
     // files
@@ -82,6 +82,11 @@ public class DirectusService : IDirectusService
         => (_client != null) ? await _client.GetFileAsync(file) : throw new InvalidOperationException("Directus client do not exists");
 
     public async Task<DirectusFile?> UpdateFileAsync<T>(string file, T item)
-    => (_client != null) ? await _client.UpdateFileAsync(file, item) : throw new InvalidOperationException("Directus client do not exists");
+        => (_client != null) ? await _client.UpdateFileAsync(file, item) : throw new InvalidOperationException("Directus client do not exists");
+
+
+    // notifications
+    public async Task<DirectusNotification?> CreateNotificationAsync(string to, string subject, string message, string? collection = null, string? item = null)
+        => (_client != null) ? await _client.CreateNotificationAsync(to, subject, message, collection, item) : throw new InvalidOperationException("Directus client do not exists");
 
 }

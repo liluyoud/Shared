@@ -62,7 +62,7 @@ public class DirectusFile
     public string? Location { get; set; }
 
     [JsonPropertyName("tags")]
-    public string? Tags { get; set; }
+    public string[]? Tags { get; set; }
 
     [JsonPropertyName("metada")]
     public string? MetaData { get; set; }
