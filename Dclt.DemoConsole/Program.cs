@@ -1,14 +1,36 @@
-﻿using Dclt.DemoConsole;
+﻿using Dclt.Chatwoot.Client;
+using Dclt.DemoConsole;
 using Dclt.Directus;
 using System.Text.Json;
 
-await TesteCache();
+//var client = new HttpClient();
+//client.DefaultRequestHeaders.Add("api_access_token", "aPSosrgHkKSYs6EF4h5xw9mi");
+//var result = await client.GetStringAsync("https://omni.dclt.com.br/api/v1/accounts/2/contacts?page=2");
+//Console.WriteLine(result);
+//Console.ReadLine();
+await TesteChat();
 //await TesteUser();
 //await TesteQuery();
 //await TesteMultipleClients();
 
+async Task TesteChat()
+{
+    var chat = new ChatwootClient("https://omni.dclt.com.br", "aPSosrgHkKSYs6EF4h5xw9mi");
+    var contacts = await chat.GetContactsAsync(2);
+    if (contacts != null)
+    {
+        foreach (var contact in contacts)
+        {
+            Console.WriteLine(contact.Name);
+        }
+    }
+    Console.ReadLine();
+
+}
+
 async Task TesteCache()
 {
+   
     var client = new DirectusClient("https://pme.dclt.com.br", "t-FdgNmL1halTNeWwOISgvkl35Y94QjX");
 
     var cache = await client.GetItemAsync<CacheModel<ReadInverterModel>>("cache", 5);

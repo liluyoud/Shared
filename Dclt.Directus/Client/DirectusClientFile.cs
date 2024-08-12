@@ -30,6 +30,19 @@ public partial class DirectusClient
         return default;
     }
 
+    public async Task<T?> GetFileAsync<T>(string file)
+    {
+        var url = $"files/{file}";
+        var response = await _client.GetAsync(url);
+        if (response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var jsonResponse = JsonSerializer.Deserialize<JsonElement>(responseContent);
+            return JsonSerializer.Deserialize<T>(jsonResponse.GetProperty("data").GetRawText(), JsonSerializeOptions);
+        }
+        return default;
+    }
+
     public async Task<DirectusFile?> UpdateFileAsync<T>(string file, T item)
     {
         var url = $"files/{file}";

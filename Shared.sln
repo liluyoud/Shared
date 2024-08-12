@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dclt.DemoConsole", "Dclt.De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dclt.Directus", "Dclt.Directus\Dclt.Directus.csproj", "{F8386841-11CE-4EA9-8C5D-19B90280032D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApi", "DemoApi\DemoApi.csproj", "{713D920C-31D4-4804-869A-F4B7E77FA092}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApi", "DemoApi\DemoApi.csproj", "{713D920C-31D4-4804-869A-F4B7E77FA092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dclt.Services", "Dclt.Services\Dclt.Services.csproj", "{DCECE385-1AA9-4BDD-860F-38A0EB5A5049}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dclt.Services", "Dclt.Services\Dclt.Services.csproj", "{DCECE385-1AA9-4BDD-860F-38A0EB5A5049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dclt.Chatwoot", "Dclt.Chatwoot\Dclt.Chatwoot.csproj", "{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{DCECE385-1AA9-4BDD-860F-38A0EB5A5049}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCECE385-1AA9-4BDD-860F-38A0EB5A5049}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCECE385-1AA9-4BDD-860F-38A0EB5A5049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

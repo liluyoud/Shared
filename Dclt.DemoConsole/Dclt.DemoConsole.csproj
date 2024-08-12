@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dclt.Chatwoot\Dclt.Chatwoot.csproj" />
     <ProjectReference Include="..\Dclt.Directus\Dclt.Directus.csproj" />
     <ProjectReference Include="..\Dclt.Shared\Dclt.Shared.csproj" />
   </ItemGroup>
