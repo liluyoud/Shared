@@ -5,7 +5,7 @@ namespace Dclt.Shared.Extensions;
 
 public static class EnumExtension
 {
-    public static string Description(this Enum value)
+    public static string GetDescription(this Enum value)
     {
         FieldInfo? field = value.GetType().GetField(value.ToString());
         if (field != null)

@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Dclt.Chatwoot.Models;
+namespace Dclt.Chatwoot.Models.Api;
 
-public class Meta
+public class ContactMeta
 {
     [JsonPropertyName("count")]
     public int Count { get; set; }

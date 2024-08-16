@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Dclt.Chatwoot.Models;
+namespace Dclt.Chatwoot.Models.Api;
 
 public class ContactAttributes
 {

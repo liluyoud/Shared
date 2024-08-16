@@ -15,13 +15,33 @@ await TesteChat();
 
 async Task TesteChat()
 {
-    var chat = new ChatwootClient("https://omni.dclt.com.br", "aPSosrgHkKSYs6EF4h5xw9mi");
-    var contacts = await chat.GetContactsAsync(2);
-    if (contacts != null)
+    var chat = new ChatwootClient("https://omni.dclt.com.br", "aPSosrgHkKSYs6EF4h5xw9mi", 2);
+    var result = await chat.GetContactsAsync();
+    if (result != null && result.Data != null)
     {
-        foreach (var contact in contacts)
+        foreach (var contact in result.Data)
         {
-            Console.WriteLine(contact.Name);
+            Console.WriteLine($"{contact.Id} - {contact.Name}");
+        }
+    }
+    Console.ReadLine();
+
+    var resultConv = await chat.GetConversationsAsync();
+    if (resultConv != null && resultConv.Data != null)
+    {
+        foreach (var conv in resultConv.Data)
+        {
+            Console.Write($"{conv.Id} - {conv.Meta?.Sender?.Name} ({conv.Meta?.Sender?.PhoneNumber})");
+            if (conv.Labels != null && conv.Labels.Count() > 0)
+                Console.Write($" : {string.Join(",", conv.Labels)}");
+            Console.WriteLine();
+            if (conv.Messages != null && conv.Messages.Count() > 0)
+            {
+                foreach (var message in conv.Messages)
+                {
+                    Console.WriteLine($" . {message.Id} - {message.ContentType} / {message.MessageType}: {message.Content} ");
+                }
+            }
         }
     }
     Console.ReadLine();

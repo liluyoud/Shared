@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Dclt.Chatwoot.Models;
+namespace Dclt.Chatwoot.Models.Api;
 
 public class Contact
 {
@@ -33,4 +33,7 @@ public class Contact
 
     [JsonPropertyName("created_at")]
     public int CreatedAt { get; set; }
+
+    [JsonPropertyName("type")]
+    public string? Type { get; set; }
 }

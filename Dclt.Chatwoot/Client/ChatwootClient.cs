@@ -16,9 +16,10 @@ public partial class ChatwootClient
         NumberHandling = JsonNumberHandling.AllowReadingFromString
     };
 
-    public int AccountId { get; set; } = 1;
 
-    public ChatwootClient(HttpClient client, string accessToken)
+    public int AccountId { get; set; }
+
+    public ChatwootClient(HttpClient client, string accessToken, int accountId = 1)
     {
         if (_client == null)
         {
@@ -26,10 +27,11 @@ public partial class ChatwootClient
             _baseUrl = client.BaseAddress?.ToString();
             _accessToken = accessToken;
             _client.DefaultRequestHeaders.Add("api_access_token", accessToken);
+            AccountId = accountId;
         }
     }
 
-    public ChatwootClient(string baseUrl, string accessToken)
+    public ChatwootClient(string baseUrl, string accessToken, int accountId = 1)
     {
         if (_client == null)
         {
@@ -39,6 +41,7 @@ public partial class ChatwootClient
             _client = new HttpClient();
             _client.BaseAddress = new Uri(baseUrl);
             _client.DefaultRequestHeaders.Add("api_access_token", accessToken);
+            AccountId = accountId;
         }
     }
 }

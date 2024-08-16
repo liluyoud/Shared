@@ -1,5 +1,6 @@
 ﻿using Dclt.Chatwoot.Client;
-using Dclt.Chatwoot.Models;
+using Dclt.Chatwoot.Contracts;
+using Dclt.Chatwoot.Models.Api;
 using Microsoft.Extensions.Configuration;
 
 namespace Dclt.Chatwoot.Services;
@@ -44,7 +45,7 @@ public class ChatwootService
     }
 
     // Contacts
-    public async Task<List<Contact>?> GetContactsAsync(int page = 1)
+    public async Task<ListResponse<ContactMeta, Contact>?> GetContactsAsync(int page = 1)
         => (_client != null) ? await _client.GetContactsAsync(page) : throw new InvalidOperationException("Chatwoot client do not exists");
 
 

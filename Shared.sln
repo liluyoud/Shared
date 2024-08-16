@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApi", "DemoApi\DemoApi.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dclt.Services", "Dclt.Services\Dclt.Services.csproj", "{DCECE385-1AA9-4BDD-860F-38A0EB5A5049}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dclt.Chatwoot", "Dclt.Chatwoot\Dclt.Chatwoot.csproj", "{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dclt.Chatwoot", "Dclt.Chatwoot\Dclt.Chatwoot.csproj", "{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dclt.Chatwoot.Data", "Dclt.Chatwoot.Data\Dclt.Chatwoot.Data.csproj", "{4E550526-3E13-4B1E-BA5E-B3F1122A25D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C8F34BE-2008-49FA-A3FB-3C0470BE4DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E550526-3E13-4B1E-BA5E-B3F1122A25D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E550526-3E13-4B1E-BA5E-B3F1122A25D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E550526-3E13-4B1E-BA5E-B3F1122A25D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E550526-3E13-4B1E-BA5E-B3F1122A25D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
