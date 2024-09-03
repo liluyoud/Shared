@@ -1,5 +1,4 @@
-﻿using Dclt.Chatwoot.Contracts;
-using Dclt.Chatwoot.Models.Api;
+﻿using Dclt.Chatwoot.Models.Api;
 using System.Text.Json;
 
 namespace Dclt.Chatwoot.Client;

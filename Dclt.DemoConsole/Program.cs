@@ -1,17 +1,36 @@
 ﻿using Dclt.Chatwoot.Client;
 using Dclt.DemoConsole;
 using Dclt.Directus;
+using Dclt.Evolution.Client;
+using Dclt.Evolution.Enums;
 using System.Text.Json;
+
+
+await TestEvo();
+Console.ReadLine();
 
 //var client = new HttpClient();
 //client.DefaultRequestHeaders.Add("api_access_token", "aPSosrgHkKSYs6EF4h5xw9mi");
 //var result = await client.GetStringAsync("https://omni.dclt.com.br/api/v1/accounts/2/contacts?page=2");
 //Console.WriteLine(result);
 //Console.ReadLine();
-await TesteChat();
+//await TesteChat();
 //await TesteUser();
 //await TesteQuery();
 //await TesteMultipleClients();
+
+async Task TestEvo()
+{
+    var evo = new EvolutionClient("https://evo.dclt.com.br", "c99ca824cb1eb9b70670f54f79b1d950", "dclt_auto");
+    var textMsg = await evo.SendText("6981141732", "Olá pessoal");
+    if (textMsg != null)
+        Console.WriteLine(textMsg.Status);
+
+    var mediaMsg = await evo.SendMedia("6981141732", MimeType.ImagePng, "Imagem do Console", "https://academico.mpro.mp.br/assets/a414dde7-1aff-45ef-ac16-e4a0ccf85fe8", "logo.png");
+    if (mediaMsg != null)
+        Console.WriteLine(mediaMsg.Status);
+
+}
 
 async Task TesteChat()
 {

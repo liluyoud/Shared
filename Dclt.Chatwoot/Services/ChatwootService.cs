@@ -1,5 +1,4 @@
 ﻿using Dclt.Chatwoot.Client;
-using Dclt.Chatwoot.Contracts;
 using Dclt.Chatwoot.Models.Api;
 using Microsoft.Extensions.Configuration;
 

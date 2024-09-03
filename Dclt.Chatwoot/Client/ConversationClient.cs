@@ -1,5 +1,4 @@
 ﻿using Dclt.Chatwoot.Enums;
-using Dclt.Chatwoot.Contracts;
 using Dclt.Shared.Extensions;
 using System.Text.Json;
 using Dclt.Chatwoot.Models.Api;

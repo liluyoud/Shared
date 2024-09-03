@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Dclt.Chatwoot.Contracts;
+namespace Dclt.Chatwoot.Models.Api;
 
 public class ListResponse<TMeta, TData>
 {
