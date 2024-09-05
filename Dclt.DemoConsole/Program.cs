@@ -2,7 +2,6 @@
 using Dclt.DemoConsole;
 using Dclt.Directus;
 using Dclt.Evolution.Client;
-using Dclt.Evolution.Enums;
 using System.Text.Json;
 
 
@@ -21,14 +20,23 @@ Console.ReadLine();
 
 async Task TestEvo()
 {
+    var msg = "*SPED de maio de 2024 foi processado.*";
+    msg += "\n\nAs notas fiscais de *01/05* até *31/05/2024* foram processadas, e foram adicionados mais *32* empresas para a base de dados de monitoramento do cliente *DCLT Tecnologia*.";
+    msg += "\n\nCaso haja algum *inidôneo* em sua base, em breve iremos avisá-lo.";
+
+    var msg2 = "*Inidôneo encontrado!*";
+    msg2 += $"\n\nA empresa *DCL Tecnologia* com o CNPJ *11.111.111/0001-11* e Inscrição Estadual *111.111.111.111* foi encontrada na nossa base de inidôneos.";
+    msg2 += $" A situação de *NULA* consta no diário oficial do dia *02/05/2024*.";
+    msg2 += "\n\nProcure seu contador ou a Secretaria de Receita Estadual para esclarecimentos sobre as devidas providências.";
+
     var evo = new EvolutionClient("https://evo.dclt.com.br", "c99ca824cb1eb9b70670f54f79b1d950", "dclt_auto");
-    var textMsg = await evo.SendText("6981141732", "Olá pessoal");
+    var textMsg = await evo.SendText("6981141732", msg2);
     if (textMsg != null)
         Console.WriteLine(textMsg.Status);
 
-    var mediaMsg = await evo.SendMedia("6981141732", MimeType.ImagePng, "Imagem do Console", "https://academico.mpro.mp.br/assets/a414dde7-1aff-45ef-ac16-e4a0ccf85fe8", "logo.png");
-    if (mediaMsg != null)
-        Console.WriteLine(mediaMsg.Status);
+    //var mediaMsg = await evo.SendMedia("6981141732", MimeType.ImagePng, "Imagem do Console", "https://academico.mpro.mp.br/assets/a414dde7-1aff-45ef-ac16-e4a0ccf85fe8", "logo.png");
+    //if (mediaMsg != null)
+    //    Console.WriteLine(mediaMsg.Status);
 
 }
 
