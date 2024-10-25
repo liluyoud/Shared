@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Dclt.Directus;
 
-public class DirectusService : IDirectusService
+public class DirectusService
 {
     private DirectusClient? _client;
 
@@ -16,8 +16,8 @@ public class DirectusService : IDirectusService
     {
         _http = http ?? throw new ArgumentNullException("IHttpClientFactory is not initialized");
         _conf = conf ?? throw new ArgumentNullException("IConfiguration is not initialized"); 
-        _baseUrl = Environment.GetEnvironmentVariable("DIRECTUS_URL") ?? _conf["Environment:DIRECTUS_URL"] ?? throw new InvalidOperationException("DIRECTUS_URL not found.");
-        _permanentToken = Environment.GetEnvironmentVariable("DIRECTUS_TOKEN") ?? _conf["Environment:DIRECTUS_TOKEN"] ?? throw new InvalidOperationException("DIRECTUS_TOKEN not found.");
+        _baseUrl = Environment.GetEnvironmentVariable("DIRECTUS_URL") ?? _conf["DIRECTUS_URL"] ?? throw new InvalidOperationException("DIRECTUS_URL not found.");
+        _permanentToken = Environment.GetEnvironmentVariable("DIRECTUS_TOKEN") ?? _conf["DIRECTUS_TOKEN"] ?? throw new InvalidOperationException("DIRECTUS_TOKEN not found.");
 
         if (!string.IsNullOrEmpty(_baseUrl))
         {
@@ -61,7 +61,7 @@ public class DirectusService : IDirectusService
 
 
     // Items
-    public async Task<T?> GetItemAsync<T>(string collection, long id, string? query = null)
+    public async Task<T?> GetItemAsync<T>(string collection, string id, string? query = null)
     => (_client != null) ? await _client.GetItemAsync<T>(collection, id, query) : throw new InvalidOperationException("Directus client do not exists");
 
     public async Task<T?> GetItemsAsync<T>(string collection, string? query = null) 

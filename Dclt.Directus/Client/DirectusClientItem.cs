@@ -5,7 +5,7 @@ namespace Dclt.Directus;
 
 public partial class DirectusClient
 {
-    public async Task<T?> GetItemAsync<T>(string collection, long id, string? query = null)
+    public async Task<T?> GetItemAsync<T>(string collection, string id, string? query = null)
     {
         var url = $"/items/{collection}/{id}";
         if (!string.IsNullOrEmpty(query))
@@ -38,7 +38,7 @@ public partial class DirectusClient
     }
 
 
-    public async Task<bool> UpdateItemAsync<T>(string collection, int id, T item)
+    public async Task<bool> UpdateItemAsync<T>(string collection, string id, T item)
     {
         var response = await _client.PatchAsync($"/items/{collection}/{id}",
             new StringContent(JsonSerializer.Serialize(item), Encoding.UTF8, "application/json"));
@@ -46,7 +46,7 @@ public partial class DirectusClient
         return response.IsSuccessStatusCode;
     }
 
-    public async Task<bool> DeleteItemAsync(string collection, int id)
+    public async Task<bool> DeleteItemAsync(string collection, string id)
     {
         var response = await _client.DeleteAsync($"/items/{collection}/{id}");
         return response.IsSuccessStatusCode;
