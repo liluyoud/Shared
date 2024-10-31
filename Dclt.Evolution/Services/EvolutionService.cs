@@ -19,9 +19,9 @@ public class EvolutionService
     {
         _http = http ?? throw new ArgumentNullException("IHttpClientFactory is not initialized");
         _conf = conf ?? throw new ArgumentNullException("IConfiguration is not initialized");
-        _baseUrl = Environment.GetEnvironmentVariable("EVOLUTION_URL") ?? _conf["Environment:EVOLUTION_URL"] ?? throw new InvalidOperationException("EVOLUTION_URL not found.");
-        _accessToken = Environment.GetEnvironmentVariable("EVOLUTION_TOKEN") ?? _conf["Environment:EVOLUTION_TOKEN"] ?? throw new InvalidOperationException("EVOLUTION_TOKEN not found.");
-        _instance = Environment.GetEnvironmentVariable("EVOLUTION_INSTANCE") ?? _conf["Environment:EVOLUTION_INSTANCE"] ?? null;
+        _baseUrl = Environment.GetEnvironmentVariable("EVOLUTION_URL") ?? _conf["EVOLUTION_URL"] ?? throw new InvalidOperationException("EVOLUTION_URL not found.");
+        _accessToken = Environment.GetEnvironmentVariable("EVOLUTION_TOKEN") ?? _conf["EVOLUTION_TOKEN"] ?? throw new InvalidOperationException("EVOLUTION_TOKEN not found.");
+        _instance = Environment.GetEnvironmentVariable("EVOLUTION_INSTANCE") ?? _conf["EVOLUTION_INSTANCE"] ?? null;
 
         if (!string.IsNullOrEmpty(_baseUrl) && !string.IsNullOrEmpty(_accessToken))
         {
