@@ -29,7 +29,7 @@ async Task TestEvo()
     msg2 += $" A situação de *NULA* consta no diário oficial do dia *02/05/2024*.";
     msg2 += "\n\nProcure seu contador ou a Secretaria de Receita Estadual para esclarecimentos sobre as devidas providências.";
 
-    var evo = new EvolutionClient("https://evo.dclt.com.br", "c99ca824cb1eb9b70670f54f79b1d950", "dclt_auto");
+    var evo = new EvolutionClient("https://evo.qute.ro", "27AC54D0F288-483C-90F4-98ADC05890DA", "quteai");
     var textMsg = await evo.SendText("6981141732", msg2);
     if (textMsg != null)
         Console.WriteLine(textMsg.Status);
@@ -40,67 +40,67 @@ async Task TestEvo()
 
 }
 
-async Task TesteChat()
-{
-    var chat = new ChatwootClient("https://omni.dclt.com.br", "aPSosrgHkKSYs6EF4h5xw9mi", 2);
-    var result = await chat.GetContactsAsync();
-    if (result != null && result.Data != null)
-    {
-        foreach (var contact in result.Data)
-        {
-            Console.WriteLine($"{contact.Id} - {contact.Name}");
-        }
-    }
-    Console.ReadLine();
+//async Task TesteChat()
+//{
+//    var chat = new ChatwootClient("https://omni.dclt.com.br", "aPSosrgHkKSYs6EF4h5xw9mi", 2);
+//    var result = await chat.GetContactsAsync();
+//    if (result != null && result.Data != null)
+//    {
+//        foreach (var contact in result.Data)
+//        {
+//            Console.WriteLine($"{contact.Id} - {contact.Name}");
+//        }
+//    }
+//    Console.ReadLine();
 
-    var resultConv = await chat.GetConversationsAsync();
-    if (resultConv != null && resultConv.Data != null)
-    {
-        foreach (var conv in resultConv.Data)
-        {
-            Console.Write($"{conv.Id} - {conv.Meta?.Sender?.Name} ({conv.Meta?.Sender?.PhoneNumber})");
-            if (conv.Labels != null && conv.Labels.Count() > 0)
-                Console.Write($" : {string.Join(",", conv.Labels)}");
-            Console.WriteLine();
-            if (conv.Messages != null && conv.Messages.Count() > 0)
-            {
-                foreach (var message in conv.Messages)
-                {
-                    Console.WriteLine($" . {message.Id} - {message.ContentType} / {message.MessageType}: {message.Content} ");
-                }
-            }
-        }
-    }
-    Console.ReadLine();
+//    var resultConv = await chat.GetConversationsAsync();
+//    if (resultConv != null && resultConv.Data != null)
+//    {
+//        foreach (var conv in resultConv.Data)
+//        {
+//            Console.Write($"{conv.Id} - {conv.Meta?.Sender?.Name} ({conv.Meta?.Sender?.PhoneNumber})");
+//            if (conv.Labels != null && conv.Labels.Count() > 0)
+//                Console.Write($" : {string.Join(",", conv.Labels)}");
+//            Console.WriteLine();
+//            if (conv.Messages != null && conv.Messages.Count() > 0)
+//            {
+//                foreach (var message in conv.Messages)
+//                {
+//                    Console.WriteLine($" . {message.Id} - {message.ContentType} / {message.MessageType}: {message.Content} ");
+//                }
+//            }
+//        }
+//    }
+//    Console.ReadLine();
 
-}
+//}
 
-async Task TesteCache()
-{
+//async Task TesteCache()
+//{
    
-    var client = new DirectusClient("https://pme.dclt.com.br", "t-FdgNmL1halTNeWwOISgvkl35Y94QjX");
+//    var client = new DirectusClient("https://pme.dclt.com.br", "t-FdgNmL1halTNeWwOISgvkl35Y94QjX");
 
-    var cache = await client.GetItemAsync<CacheModel<ReadInverterModel>>("cache", 5);
+//    var cache = await client.GetItemAsync<CacheModel<ReadInverterModel>>("cache", 5);
     
-    var read = cache?.Data;
+//    var read = cache?.Data;
 
-    var jsonOptions = new JsonSerializerOptions() { WriteIndented = true };
+//    var jsonOptions = new JsonSerializerOptions() { WriteIndented = true };
 
-    var jsonCache = JsonSerializer.Serialize(cache, jsonOptions);
-    var jsonRead = JsonSerializer.Serialize(read, jsonOptions);
+//    var jsonCache = JsonSerializer.Serialize(cache, jsonOptions);
+//    var jsonRead = JsonSerializer.Serialize(read, jsonOptions);
 
-    Console.WriteLine(jsonCache);
-    Console.WriteLine(jsonRead);
-}
+//    Console.WriteLine(jsonCache);
+//    Console.WriteLine(jsonRead);
+//}
 
-async Task TesteUser()
-{
-    var client = new DirectusClient("https://rovema.dclt.com.br");
-    var user = await client.AuthenticateAndGetUserAsync("liluyoud@rovemaenergia.com.br", "Rovema@123");
-    var jsonUser = JsonSerializer.Serialize(user, new JsonSerializerOptions() { WriteIndented = true });
-    Console.WriteLine(jsonUser);
-    Console.ReadLine();
-}
+//async Task TesteUser()
+//{
+//    var client = new DirectusClient("https://rovema.dclt.com.br");
+//    var user = await client.AuthenticateAndGetUserAsync("liluyoud@rovemaenergia.com.br", "Rovema@123");
+//    var jsonUser = JsonSerializer.Serialize(user, new JsonSerializerOptions() { WriteIndented = true });
+//    Console.WriteLine(jsonUser);
+//    Console.ReadLine();
+//}
 
 //async Task TesteQuery()
 //{
@@ -144,37 +144,37 @@ async Task TesteUser()
 //    }
 //}
 
-async Task TesteMultipleClients()
-{
-    var client1 = new DirectusClient("https://rovema.dclt.com.br", "8SyRFwK5bcl1WPPIpOjJS7nprTSNfXUe");
+//async Task TesteMultipleClients()
+//{
+//    var client1 = new DirectusClient("https://rovema.dclt.com.br", "8SyRFwK5bcl1WPPIpOjJS7nprTSNfXUe");
 
-    var client2 = new DirectusClient("https://rovema.dclt.com.br");
+//    var client2 = new DirectusClient("https://rovema.dclt.com.br");
 
 
-    var item1 = await client1.GetItemAsync<dynamic>("rpas", 1);
-    Console.WriteLine($"Item 1: {item1}");
+//    var item1 = await client1.GetItemAsync<dynamic>("rpas", 1);
+//    Console.WriteLine($"Item 1: {item1}");
 
-    var item2 = await client2.GetItemAsync<dynamic>("rpas", 1);
-    Console.WriteLine($"Item 2: {item2}");
+//    var item2 = await client2.GetItemAsync<dynamic>("rpas", 1);
+//    Console.WriteLine($"Item 2: {item2}");
 
-    var item3 = await client1.GetItemAsync<dynamic>("rpas", 1);
-    Console.WriteLine($"Item 3: {item3}");
+//    var item3 = await client1.GetItemAsync<dynamic>("rpas", 1);
+//    Console.WriteLine($"Item 3: {item3}");
 
-    Console.WriteLine($"Client 1: {client1.IsAuthenticated}");
-    Console.WriteLine($"Client 2: {client2.IsAuthenticated}");
+//    Console.WriteLine($"Client 1: {client1.IsAuthenticated}");
+//    Console.WriteLine($"Client 2: {client2.IsAuthenticated}");
 
-    var autenticado = await client2.AuthenticateAsync("admin@dclt.com.br", "Lsmlzlh_2507");
-    if (autenticado)
-    {
-        var item4 = await client2.GetItemAsync<dynamic>("rpas", 1);
-        Console.WriteLine($"Item 4: {item4}");
-        Console.WriteLine($"Client 2: {client2.IsAuthenticated}");
-    }
-    else
-    {
-        Console.WriteLine("Não autenticado");
-    }
-}
+//    var autenticado = await client2.AuthenticateAsync("admin@dclt.com.br", "Lsmlzlh_2507");
+//    if (autenticado)
+//    {
+//        var item4 = await client2.GetItemAsync<dynamic>("rpas", 1);
+//        Console.WriteLine($"Item 4: {item4}");
+//        Console.WriteLine($"Client 2: {client2.IsAuthenticated}");
+//    }
+//    else
+//    {
+//        Console.WriteLine("Não autenticado");
+//    }
+//}
 
 
 
