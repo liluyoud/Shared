@@ -30,7 +30,7 @@ async Task TestEvo()
     msg2 += "\n\nProcure seu contador ou a Secretaria de Receita Estadual para esclarecimentos sobre as devidas providências.";
 
     var evo = new EvolutionClient("https://evo.qute.ro", "27AC54D0F288-483C-90F4-98ADC05890DA", "quteai");
-    var textMsg = await evo.SendText("6981141732", msg2);
+    var textMsg = await evo.SendText("1399788-2009", msg2);
     if (textMsg != null)
         Console.WriteLine(textMsg.Status);
 
