@@ -2,7 +2,7 @@
 
 namespace Dclt.Services.OpenWeather;
 
-public class OpenWeatherService : IOpenWeatherService
+public class OpenWeatherService 
 {
     private readonly IHttpClientFactory _http;
     private readonly IConfiguration _conf;
