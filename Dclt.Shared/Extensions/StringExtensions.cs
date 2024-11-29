@@ -1,9 +1,18 @@
 ﻿using System.Globalization;
+using System.Text.Json;
 
 namespace Dclt.Shared.Extensions;
 
 public static class StringExtensions
 {
+    public static string ToJson<T>(this T obj) where T : class
+    {
+        // object to Json
+        var json = JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = true });
+        return json;
+
+    }
+
     public static string ToUfDescription(this string uf)
     {
         switch (uf.ToUpper())
